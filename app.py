@@ -1,24 +1,27 @@
 from flask import Flask, render_template
-
-from candidates import candidates, json_candidates, candidates_skills
+from json_load_info_candidates import candidates
+from skills import skill_conditations
 
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route("/")
 def page_index():
-    return render_template("index.html", candidates=json_candidates)
+    return render_template("index.html", candidates_all=candidates)
 
 
 @app.route("/candidates/<int:id>")
 def page_candidates(id):
-    return candidates(id)
+    if id > len(candidates):
+        return "Пользователь не найден"
+    id = id - 1
+    return render_template("candidates.html", name=candidates[id]["name"], picture=candidates[id]["picture"],
+                           position=candidates[id]["position"], skills=candidates[id]["skills"])
 
 
 @app.route("/skills/<skill>")
-def page_skills(skill):
-    return candidates_skills(skill)
+def skills(skill):
+    return render_template("skills.html", skill=skill_conditations(skill))
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+app.run()
