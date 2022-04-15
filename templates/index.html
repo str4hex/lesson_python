@@ -1,7 +1,7 @@
-{% for candidates_all in candidates %}
+{% for candidates in candidates_all %}
 <pre>
-  Имя кандидата - {{ candidates_all.name }}
-  Позиция кандидата - {{ candidates_all.position }}
-  Навыки через запятую - {{ candidates_all.skills }}
+    Имя кандидата - {{ candidates.name }}
+    Позиция кандидата - {{ candidates.position }}
+    Навыки через запятую - {{ candidates.skills }}
 <pre>
-{% endfor %}
+    {% endfor %}
